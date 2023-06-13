@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_movierank/main_api.dart';
+import 'package:flutter_application_movierank/rank.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -43,9 +44,25 @@ class _MainPageState extends State<MainPage> {
     String Dt = dt.toString().split(' ')[0].replaceAll('-', '');
     print(Dt);
     var api = Movie();
-    var movies = await api.infoMovie(Dt: Dt);
-    for (var movie in movies) {
-      print(movie['movieNm']);
-    }
+    var movies = api.infoMovie(Dt: Dt);
+
+    setState(() {
+      body = FutureBuilder(
+        future: movies,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var Mrank = snapshot.data;
+            return ListView.separated(
+                itemBuilder: (context, index) {
+                  return MovieRank(movie: Mrank[index]);
+                },
+                separatorBuilder: (context, index) => const Divider(),
+                itemCount: Mrank!.length);
+          } else {
+            return const CircularProgressIndicator();
+          }
+        },
+      );
+    });
   }
 }

@@ -8,7 +8,6 @@ class MovieRank extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var movieTitle = movie['movieNm'];
-    var moviebox = movie['boxofficeType'];
     var date = movie['openDt'];
     var rank = movie['rank'];
     return GestureDetector(

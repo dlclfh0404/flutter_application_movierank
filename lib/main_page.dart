@@ -42,7 +42,6 @@ class _MainPageState extends State<MainPage> {
         firstDate: DateTime(2023),
         lastDate: yesterday);
     String Dt = dt.toString().split(' ')[0].replaceAll('-', '');
-    print(Dt);
     var api = Movie();
     var movies = api.infoMovie(Dt: Dt);
 
@@ -59,7 +58,7 @@ class _MainPageState extends State<MainPage> {
                 separatorBuilder: (context, index) => const Divider(),
                 itemCount: Mrank!.length);
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         },
       );
